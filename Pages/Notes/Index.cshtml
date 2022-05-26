@@ -1,0 +1,129 @@
+﻿@page
+@model MyNotebook.Pages.Notes.IndexModel
+@{
+}
+
+<br />
+
+<div class="container row">
+    <div class="col-10">
+        <h2>My notes</h2>
+    </div>
+    <div class="col-2">
+        <a asp-page="Create" class="btn btn-info">Create note</a>
+    </div>
+
+  @*  <div>
+        <p>
+            <form>
+                Title: <input type="text" asp-for=SearchInputTitle />
+                <select asp-items="Model.Authors" asp-for="SelectedAuthorsName">
+                    <option value="">Select author</option>
+                    <option value="Create">Create author</option>
+                </select>
+                <input type="submit" value="Search" />
+            </form>
+        </p> 
+    </div>*@
+
+    <div class="col-12 border p-2 mt-2">
+       
+        <form method="post">
+            @if (Model.Notes.Count > 0)
+            {
+                <table class="table table-striped border-1">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Notes.FirstOrDefault().Title"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Notes.FirstOrDefault().Content"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Notes.FirstOrDefault().Category.Title"></label>
+                        </th>
+                      @*  <th>
+                            <label asp-for="Notes.FirstOrDefault().Author.Surname"></label>
+                        </th>*@
+                       @* <th>
+                            <label asp-for="Books.FirstOrDefault().Publisher.Name"></label>
+                        </th>*@
+
+                    </tr>
+                    @foreach (var note in Model.Notes)
+                    {
+                        <tr>
+                            <td>
+                                @note.Title
+                            </td>
+                            <td>
+                                @note.Content
+                            </td>
+                            @* <td>
+                                @note.Category.Title
+                            </td>*@
+                           @* <td>
+                                @book.Author.Surname
+                            </td>*@
+                           @* <td>
+                                @book.Publisher.Name
+                            </td>*@
+                            <td>
+                                <button asp-page-handler="Delete" asp-route-id="@note.Id" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
+                                <a asp-page="Edit" asp-route-id="@note.Id" class="btn btn-success btn-sm">Edit</a>
+                            </td>
+                           
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No notes yet </p>
+            }
+        </form>
+    </div>
+</div>
+
+@foreach(var note in Model.Notes)
+{
+<div>
+    <h2>
+        @note.Category.Title
+    </h2>
+</div>
+<div>
+    <h1>
+         @note.Title
+    </h1>
+</div>
+<div>
+    <p>
+        @note.Content
+    </p>
+</div>
+}
+
+
+
+
+@*
+<div class="container">
+    <table>
+        @foreach (var item in Model.Notes)
+        {
+            <div>
+                <h2>@item.Category.Title</h2>
+            </div>
+            <div>
+                <h1>@item.Title</h1>
+            </div>
+            <div>
+                <p>
+                    @item.Content
+                </p>
+            </div>
+        }
+    </table>
+</div>*@
+

@@ -1,0 +1,36 @@
+﻿@page
+@model MyNotebook.Pages.Categories.IndexModel
+@{
+}
+
+<br />
+
+<div class="container">
+    <div class>
+
+    </div>
+</div>
+
+
+<table>
+    <tr>
+        <th>
+            <h1>Title</h1>
+        </th>
+        <th>
+            <h1>Description</h1>
+        </th>
+    </tr>
+    @foreach (var item in Model.Categories)
+    {
+        <tr>
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @item.Description
+            </td>
+        </tr>
+    }
+
+</table>
