@@ -7,16 +7,32 @@ namespace MyNotebook.Repositories
     public class NotesRepository
     {
         private readonly MyNotebookContext _context;
+        
 
         public NotesRepository(MyNotebookContext context)
         {
             _context = context;
         }
-        public List<Note> GetNotes()
+        public List<Note> GetNotesByUserId(string id, string title = null, string categoryTitle = null)
         {
-            return _context.Notes
-                .Include(n => n.Category)
-                .ToList();
+            var notes = _context.Notes
+                .Include(note  => note.Category)
+             // .Include(note => note.Title)
+                .Where(note => note.MyNotebookUserId == id)
+                .Select(note => note);
+            if (!string.IsNullOrEmpty(title))
+            {
+                notes = notes.Where(note => note.Title.Contains(title));
+            }
+            if (!string.IsNullOrEmpty(categoryTitle))
+            {
+                notes = notes.Where(note => note.Category.Title.Contains(categoryTitle));
+            }
+            return notes.ToList();
+            /*return _context.Notes.
+                Include(b => b.Category)
+                .Where(b => b.Title
+                .Contains(title)).ToList();*/
         }
 
         public List<Note> GetNotesByUserId(string id)
@@ -27,7 +43,7 @@ namespace MyNotebook.Repositories
         }
         public Note GetNote(int id)
         {
-            return _context.Notes.FirstOrDefault(note => note.Id == id);
+            return _context.Notes.Include(c => c.Category).FirstOrDefault(note => note.Id == id);
         }
         public void DeleteNote(int id)
         {
@@ -43,11 +59,20 @@ namespace MyNotebook.Repositories
             _context.Entry(note).State = EntityState.Modified;
             _context.SaveChanges();
         }
-        public void CreateNote(Note note)
+        public void CreateNote(Note note, string id)
         {
-            _context.Add(note);
+            
+            note.MyNotebookUserId = id;
+            _context.Notes.Add(note);
             _context.SaveChanges();
         }
-
+        public List<string> GetCategoriesNames(string id)
+        {
+            return (List<string>)_context.Notes
+                .Include(note => note.Category)
+                .Where(c => c.MyNotebookUserId == id)
+                .Select(c => c.Category.Title)
+                .Distinct().ToList();
+        }
     }
 }

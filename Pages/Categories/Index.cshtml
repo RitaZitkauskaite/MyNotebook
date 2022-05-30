@@ -5,32 +5,51 @@
 
 <br />
 
-<div class="container">
-    <div class>
+<div class="container row">
+    <div class="col-10">
+        <h2>Category list</h2>
+    </div>
+    <div class="col-2">
+        <a asp-page="Create" class="btn btn-info">Create Category</a>
+    </div>
 
+    <div class="col-12 border p-2 mt-2">
+        <form method="post">
+            @if (Model.Categories.Count > 0)
+            {
+                <table class="table table-striped border-1">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Categories.FirstOrDefault().Title"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Categories.FirstOrDefault().Description"></label>
+                        </th>
+                        <th></th>
+
+                    </tr>
+                    @foreach (var c in Model.Categories)
+                    {
+                        <tr>
+                            <td>
+                                @c.Title
+                            </td>
+                            <td>
+                                @c.Description
+                            </td>
+                            <td>
+                                <button asp-page-handler="Delete" asp-route-id="@c.Id" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
+                                <a asp-page="Edit" asp-route-id="@c.Id" class="btn btn-success btn-sm">Edit</a>
+                            </td>
+                            
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No books available</p>
+            }
+        </form>
     </div>
 </div>
-
-
-<table>
-    <tr>
-        <th>
-            <h1>Title</h1>
-        </th>
-        <th>
-            <h1>Description</h1>
-        </th>
-    </tr>
-    @foreach (var item in Model.Categories)
-    {
-        <tr>
-            <td>
-                @item.Title
-            </td>
-            <td>
-                @item.Description
-            </td>
-        </tr>
-    }
-
-</table>

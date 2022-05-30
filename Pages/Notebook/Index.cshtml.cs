@@ -35,7 +35,6 @@ namespace MyNotebook.Pages.Notebook
             Categories = _categoriesRepository.GetCategoriesByUserId(userId);
             
             return Page();
-            
         }
     }
 }

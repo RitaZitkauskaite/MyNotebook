@@ -1,6 +1,56 @@
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
 html {
   font-size: 14px;
 }
+.create{
+    padding: 10px 20px;
+    background-color: aqua;
+    text-align: right;
+}
+.login{
+    padding-top: 50px;
+    width: 500px;
+    margin: 0 auto;
+   
+}
+.login a{
+    text-decoration: none;
+    color: rgb(25, 22, 23);
+}
+.register-section{
+    margin-top: 20px;
+}
+.register-section p{
+    text-align: center;
+}
+.note-section{
+   
+    display: flex;
+    flex-direction:row;
+}
+.note {
+    background-color: rgb(167, 241, 238);
+    display: inline-block;
+    width: 300px;
+    border-radius: 10px;
+    margin: 5px 5px;
+}
+.note-buttons{
+    text-align: right;
+    padding-right: 5px;
+}
+
+
+
+
+
+
+
+
 
 @media (min-width: 768px) {
   html {
