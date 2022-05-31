@@ -8,19 +8,12 @@ namespace MyNotebook.Repositories
     public class CategoriesRepository
     {
         private readonly MyNotebookContext _context;
-        private readonly UserService _userService;
 
         public CategoriesRepository(MyNotebookContext context)
         {
             _context = context;
         }
-       /* public List<Category> GetCategories()
-        {
-            return _context.Categories
-                .Include(c => c.Notes)
-                .ToList();
-        }*/
-
+   
         public List<Category> GetCategoriesByUserId(string id)
         {
             return _context.Categories.Include(c => c.Notes).Where(c => c.MyNotebookUserId == id).ToList();

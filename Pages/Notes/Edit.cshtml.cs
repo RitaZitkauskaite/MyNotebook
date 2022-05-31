@@ -15,7 +15,6 @@ namespace MyNotebook.Pages.Notes
         private readonly CategoriesRepository _categoriesRepository;
         private readonly MyNotebookContext _context;
         private readonly UserService _userService;
-        //public SelectList MyCategoryNames { get; set; }
 
         public EditModel(NotesRepository repository, MyNotebookContext context, UserService userService, CategoriesRepository categoriesRepository)
         {
@@ -38,49 +37,17 @@ namespace MyNotebook.Pages.Notes
         }
         public async Task<IActionResult> OnPost()
         {
-            /* if (!ModelState.IsValid)
-             {
-                 return Page();
-             }   */
             if(Note.Title == null || Note.CategoryId == 0)
             {
                 return Page();  
             }
-
             var noteFromDb = _repository.GetNote(Note.Id);
 
             noteFromDb.Title = Note.Title;
-            //noteFromDb.Category = Note.Category; 
             noteFromDb.CategoryId = Note.CategoryId;
             noteFromDb.Content = Note.Content;
             _repository.UpdateNote(noteFromDb);
             return RedirectToPage("Index");
-
-            /*var tryUpdate = await TryUpdateModelAsync<Book>
-                (bookFromDb, "book",
-                s => s.Id,
-                s => s.AuthorId,
-                s => s.Title,
-                s => s.Content);*/
-
-
-            /* if (tryUpdate)
-             {
-                 _booksRepository.UpdateBook(bookFromDb);
-                 return RedirectToPage("Index");
-             }
-             GenerateAuthorsDropDownList(_context, bookFromDb.AuthorId);
-             return Page();*/
-
-
-
-
-            /*    bookFromDb.Title = Book.Title;
-                bookFromDb.Content = Book.Content;
-                _booksRepository.UpdateBook(bookFromDb);
-                return RedirectToPage("Index");
-            }
-            return RedirectToPage();*/
         }
       
     }

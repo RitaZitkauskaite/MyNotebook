@@ -21,7 +21,6 @@ namespace MyNotebook.Pages.Categories
             _userService = userService;
         }
 
-        
         public void OnGet()
         {
             var userId = _userService.GetUserId();
@@ -38,20 +37,5 @@ namespace MyNotebook.Pages.Categories
             _repository.DeleteCategory(id);
             return RedirectToPage("Index");
         }
-
-        /*public async Task<IActionResult> OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            if (Category.Title == null && Category.Id == 0)
-            {
-                return Page();
-            }
-            _repository.CreateCategory(Category);
-            return RedirectToPage("Index");
-
-        }*/
     }
 }

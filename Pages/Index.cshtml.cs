@@ -19,8 +19,7 @@ namespace MyNotebook.Pages
         public List<Category> Categories { get; set; }
         public List<Note> Notes { get; set; }
 
-      /*  [BindProperty(SupportsGet = true)]
-        public string SearchInputTitle { get; set; } // Search*/
+      
 
         public IndexModel(ILogger<IndexModel> logger, CategoriesRepository categoriesRepository, NotesRepository notesRepository, UserService userService)
         {

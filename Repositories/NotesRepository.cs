@@ -17,30 +17,26 @@ namespace MyNotebook.Repositories
         {
             var notes = _context.Notes
                 .Include(note  => note.Category)
-             // .Include(note => note.Title)
                 .Where(note => note.MyNotebookUserId == id)
                 .Select(note => note);
             if (!string.IsNullOrEmpty(title))
             {
-                notes = notes.Where(note => note.Title.Contains(title));
+                notes = notes.Where(note => note.Title.Contains(title) || note.Content.Contains(title) || note.Category.Title.Contains(title)) ;
             }
+
             if (!string.IsNullOrEmpty(categoryTitle))
             {
-                notes = notes.Where(note => note.Category.Title.Contains(categoryTitle));
+                notes = notes.Where(note => note.Category.Id.ToString() == categoryTitle);
             }
             return notes.ToList();
-            /*return _context.Notes.
-                Include(b => b.Category)
-                .Where(b => b.Title
-                .Contains(title)).ToList();*/
         }
-
         public List<Note> GetNotesByUserId(string id)
         {
             return _context.Notes
                 .Include(note => note.Category)
                 .Where(note => note.MyNotebookUserId == id).ToList();
         }
+
         public Note GetNote(int id)
         {
             return _context.Notes.Include(c => c.Category).FirstOrDefault(note => note.Id == id);

@@ -5,50 +5,38 @@
 
 <br />
 
-<div class="container row">
+<div class="container">
     <div class="col-10">
         <h2>Category list</h2>
     </div>
     <div class="col-2">
-        <a asp-page="Create" class="btn btn-info">Create Category</a>
+        <a asp-page="Create" class="btn my-btn">Create Category</a>
     </div>
 
-    <div class="col-12 border p-2 mt-2">
+    <div class="categories-section">
         <form method="post">
-            @if (Model.Categories.Count > 0)
+          
+            @if(Model.Categories.Count > 0)
             {
-                <table class="table table-striped border-1">
-                    <tr class="table-secondary">
-                        <th>
-                            <label asp-for="Categories.FirstOrDefault().Title"></label>
-                        </th>
-                        <th>
-                            <label asp-for="Categories.FirstOrDefault().Description"></label>
-                        </th>
-                        <th></th>
-
-                    </tr>
-                    @foreach (var c in Model.Categories)
-                    {
-                        <tr>
-                            <td>
-                                @c.Title
-                            </td>
-                            <td>
-                                @c.Description
-                            </td>
-                            <td>
-                                <button asp-page-handler="Delete" asp-route-id="@c.Id" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
-                                <a asp-page="Edit" asp-route-id="@c.Id" class="btn btn-success btn-sm">Edit</a>
-                            </td>
-                            
-                        </tr>
-                    }
-                </table>
+               
+               @foreach (var category in Model.Categories)
+               {
+                    <div class="category">
+                        <div class="category-title">
+                            <div>
+                                 <h1>@category.Title</h1>
+                                    <p>@category.Description</p>
+                              </div>
+                               <div class="category-buttons">
+                                   <a asp-page="Edit" asp-route-id="@category.Id" class="btn my-btn">Edit category</a>
+                                   <button asp-page-handler="Delete category" asp-route-id="@category.Id" onclick="return confirm('Are you sure?')" class="btn danger my-btn">Delete</button>
+                              </div>
+                          </div>
+                         </div>
+               } 
             }
-            else
-            {
-                <p>No books available</p>
+            else{
+                 <p>No notes yet</p>
             }
         </form>
     </div>

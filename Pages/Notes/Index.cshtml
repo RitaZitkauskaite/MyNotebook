@@ -9,47 +9,54 @@
     <div class="col-10">
         <h2>My notes</h2>
     </div>
-    
-    <div class="search">
-        <p>
-            <form>
-                <input type="text" asp-for=SearchInputTitle />
+    <div class="col-2">
+        <a asp-page="Create" class="btn my-btn">Create Note</a>
+    </div>
+   
+    <section class="search">
+        <form>
+            <div class="filter">
                 <select asp-items="Model.CategoriesNames" asp-for="SelectedCategorysName">
-                    <option value="">Select Category</option>
+                <option value="">Select Category</option>
                 </select>
+                <input type="submit" value="Filter by category"/>
+            </div>
+            <div>
+                <input type="text" asp-for=SearchInputTitle />
                 <input type="submit" value="Search" />
-                 
-            </form>
-        </p> 
-        <div class="col-2">
-           <a asp-page="Create" class="btn create">Create note</a>
-        </div>
-     </div>
+            </div>
+        </form>
+     </section>
 
      <div class="note-section">
         <form method="post">
-          
             @if(Model.Notes.Count > 0)
             {
-                 @foreach (var note in Model.Notes)
-                 {
-                      <div class="note">
-                          <h3>@note.Category.Title</h3>
-                          <h1>@note.Title</h1>
-                          <p>@note.Content</p>
-                          <div class="note-buttons">
-                               <a asp-page="Edit" asp-route-id="@note.Id" class="btn btn-success btn-sm">Edit</a>
-                               <button asp-page-handler="Delete" asp-route-id="@note.Id" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
+                <div class="notes-board">
+
+                     @foreach (var note in Model.Notes)
+                     {
+                          <div class="note">
+                              <div>
+                                  <h3>@note.Category.Title</h3>
+                                  <h1>@note.Title</h1>
+                                  <p>@note.Content</p>
+                              </div>
+                              <div class="note-buttons">
+                                   <a asp-page="Edit" asp-route-id="@note.Id" class="btn my-btn">Edit</a>
+                                   <button asp-page-handler="Delete" asp-route-id="@note.Id" onclick="return confirm('Are you sure?')" class="btn danger">Delete</button>
+                              </div>
                           </div>
-                      </div>
-                 }
-                   
+                     }
+                 </div>
             }
             else{
                  <p>No notes yet</p>
             }
         </form>
+        
     </div>
+     
 </div>
 
 
